@@ -33,7 +33,7 @@ static int hdf5_fuse_getattr(const char* path, struct stat *stbuf)
   memset(stbuf, 0, sizeof(struct stat));
 
   H5O_info_t obj_info;
-  if(H5Oget_info_by_name(root_group, path, &obj_info, H5P_DEFAULT) < 0)
+  if(H5Oget_info_by_name(root_group, path, &obj_info, H5P_DEFAULT, H5P_DEFAULT) < 0)
     return -ENOENT;
 
   if(obj_info.type == H5O_TYPE_GROUP) {
@@ -82,7 +82,7 @@ static int hdf5_fuse_open(const char *path, struct fuse_file_info *fi)
     return -EACCES;
 
   H5O_info_t obj_info;
-  if(H5Oget_info_by_name(root_group, path, &obj_info, H5P_DEFAULT) < 0)
+  if(H5Oget_info_by_name(root_group, path, &obj_info, H5P_DEFAULT, H5P_DEFAULT) < 0)
     return -ENOENT;
 
   return 0;
